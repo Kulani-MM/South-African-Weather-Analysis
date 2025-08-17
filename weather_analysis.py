@@ -10,3 +10,18 @@ print(data.head())
 # Check for missing values
 print("\nMissing values per column:")
 print(data.isnull().sum())
+
+# Convert 'Date' to datetime format
+data['Date'] = pd.to_datetime(data['Date'])
+
+# Remove rows with missing values
+data = data.dropna()
+
+# Ensure 'Temperature_C' is numeric
+data['Temperature_C'] = pd.to_numeric(data['Temperature_C'], errors='coerce')
+
+# Remove rows where 'Temperature_C' couldn't be converted
+data = data.dropna(subset=['Temperature_C'])
+
+print("Cleaned Data:")
+print(data.head())
