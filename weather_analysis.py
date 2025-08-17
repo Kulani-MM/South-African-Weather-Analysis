@@ -25,3 +25,17 @@ data = data.dropna(subset=['Temperature_C'])
 
 print("Cleaned Data:")
 print(data.head())
+
+# Summary statistics
+print("Summary Statistics:")
+print(data.describe())
+
+# Group by city and calculate average temperature
+city_avg_temp = data.groupby('City')['Temperature_C'].mean()
+print("\nAverage Temperature by City:")
+print(city_avg_temp)
+
+# Group by date and calculate average temperature
+date_avg_temp = data.groupby('Date')['Temperature_C'].mean()
+print("\nAverage Temperature by Date:")
+print(date_avg_temp)
