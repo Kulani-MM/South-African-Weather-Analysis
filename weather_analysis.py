@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Load the dataset
 data = pd.read_csv("data/sa_weather.csv")
@@ -39,3 +40,19 @@ print(city_avg_temp)
 date_avg_temp = data.groupby('Date')['Temperature_C'].mean()
 print("\nAverage Temperature by Date:")
 print(date_avg_temp)
+
+# Plot average temperature by city
+city_avg_temp.plot(kind='bar', title='Average Temperature by City')
+plt.ylabel('Temperature (°C)')
+plt.xlabel('City')
+plt.tight_layout()
+plt.savefig('images/city_avg_temp.png')
+plt.show()
+
+# Plot average temperature over time
+date_avg_temp.plot(kind='line', title='Average Temperature Over Time')
+plt.ylabel('Temperature (°C)')
+plt.xlabel('Date')
+plt.tight_layout()
+plt.savefig('images/date_avg_temp.png')
+plt.show()
