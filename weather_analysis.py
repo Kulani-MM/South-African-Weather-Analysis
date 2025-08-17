@@ -1,5 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
+import plotly.express as px
+from dash import Dash, dcc, html, Input, Output
+
 
 # Load the dataset
 data = pd.read_csv("data/sa_weather.csv")
@@ -108,3 +113,89 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.savefig('images/top_5_coldest.png')
 plt.show()
+
+# --- Interactive Plots ---
+
+# 1️⃣ Average Temperature by City (Interactive)
+fig_city = px.bar(
+    city_avg_temp.sort_values(ascending=False),
+    x=city_avg_temp.index,
+    y=city_avg_temp.values,
+    labels={'x':'City', 'y':'Average Temperature (°C)'},
+    title='Average Temperature by City',
+    color=city_avg_temp.values,
+    color_continuous_scale='OrRd'
+)
+fig_city.update_layout(xaxis_tickangle=-45)
+fig_city.show()
+
+# 2️⃣ Average Temperature Over Time (Interactive)
+fig_time = px.line(
+    date_avg_temp,
+    x=date_avg_temp.index,
+    y=date_avg_temp.values,
+    labels={'x':'Date', 'y':'Average Temperature (°C)'},
+    title='Average Temperature Over Time'
+)
+fig_time.update_traces(mode='lines+markers', line=dict(color='orange'))
+fig_time.show()
+
+# 3️⃣ Seasonal Trends by Month (Interactive)
+monthly_avg = data.groupby('Month')['Temperature_C'].mean()
+fig_month = px.line(
+    x=monthly_avg.index,
+    y=monthly_avg.values,
+    labels={'x':'Month', 'y':'Average Temperature (°C)'},
+    title='Average Temperature by Month'
+)
+fig_month.update_traces(mode='lines+markers', line=dict(color='green'))
+fig_month.show()
+
+# optional: Save interactive plots as HTML
+fig_city.write_html("interactive_city_avg.html")
+fig_time.write_html("interactive_time_avg.html")
+fig_month.write_html("interactive_month_avg.html")
+
+
+# Interactive city selection
+import pandas as pd
+import plotly.express as px
+from dash import Dash, dcc, html, Input, Output
+
+# Load and clean data
+data = pd.read_csv("data/sa_weather.csv")
+data['Date'] = pd.to_datetime(data['Date'])
+data['Temperature_C'] = pd.to_numeric(data['Temperature_C'], errors='coerce')
+data = data.dropna(subset=['Temperature_C'])
+
+# Get list of cities
+cities = data['City'].unique()
+
+# Initialize Dash app
+app = Dash(__name__)
+
+app.layout = html.Div([
+    html.H1("South African Weather Analysis"),
+    html.Label("Select a City:"),
+    dcc.Dropdown(
+        id='city-dropdown',
+        options=[{'label': city, 'value': city} for city in cities],
+        value=cities[0]  # default
+    ),
+    dcc.Graph(id='city-temp-graph')
+])
+
+# Callback to update graph when city changes
+@app.callback(
+    Output('city-temp-graph', 'figure'),
+    Input('city-dropdown', 'value')
+)
+def update_graph(selected_city):
+    city_data = data[data['City'] == selected_city]
+    fig = px.line(city_data, x='Date', y='Temperature_C',
+                  title=f"Temperature Over Time: {selected_city}",
+                  labels={'Temperature_C':'Temperature (°C)', 'Date':'Date'})
+    return fig
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
