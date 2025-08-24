@@ -1,4 +1,6 @@
-pandas
-matplotlib
-plotly
 dash
+plotly
+pandas
+requests
+matplotlib
+gunicorn
