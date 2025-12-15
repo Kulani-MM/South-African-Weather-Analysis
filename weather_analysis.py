@@ -23,49 +23,65 @@ logger = logging.getLogger(__name__)
 # Step 1: Fetch Live Weather Data
 # -----------------------------
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
-if not API_KEY:
-    logger.error("OPENWEATHER_API_KEY not found in environment variables")
-    raise ValueError("Please set OPENWEATHER_API_KEY in your .env file")
+DEMO_MODE = not API_KEY
 
-CITIES = [
-    "Johannesburg", "Cape Town", "Durban", "Pretoria", "Port Elizabeth",
-    "Bloemfontein", "East London", "Pietermaritzburg", "Nelspruit", "Kimberley",
-    "Polokwane", "Rustenburg", "Middelburg", "George", "Richards Bay",
-    "Vanderbijlpark", "Centurion", "Uitenhage", "Welkom", "Newcastle",
-    "Vereeniging", "Krugersdorp", "Witbank", "Paarl", "Stellenbosch"
-]
-REQUEST_TIMEOUT = 10
+if DEMO_MODE:
+    logger.warning("No API key found - running in DEMO MODE with sample data")
+    logger.info("To use live data, set OPENWEATHER_API_KEY in your .env file")
 
-weather_list = []
+    # Load sample data
+    import json
+    sample_data_path = os.path.join(os.path.dirname(__file__), 'sample_data.json')
 
-for city in CITIES:
     try:
-        url = f"https://api.openweathermap.org/data/2.5/weather?q={city},ZA&units=metric&appid={API_KEY}"
-        logger.info(f"Fetching weather data for {city}")
-        res = requests.get(url, timeout=REQUEST_TIMEOUT)
-        res.raise_for_status()
-        data = res.json()
+        with open(sample_data_path, 'r') as f:
+            weather_list = json.load(f)
+        logger.info(f"Loaded sample data for {len(weather_list)} cities")
+    except FileNotFoundError:
+        logger.error("sample_data.json not found. Cannot run in demo mode.")
+        raise ValueError("Please either set OPENWEATHER_API_KEY in .env or ensure sample_data.json exists")
+else:
+    logger.info("Running in LIVE MODE with OpenWeatherMap API")
 
-        # Make sure the response is valid
-        if data.get("main") and data.get("weather"):
-            weather_list.append({
-                "City": city,
-                "Temperature_C": data["main"]["temp"],
-                "Feels_Like_C": data["main"]["feels_like"],
-                "Humidity": data["main"]["humidity"],
-                "Pressure": data["main"]["pressure"],
-                "Wind_Speed": data["wind"].get("speed", 0),
-                "Condition": data["weather"][0]["description"].title()
-            })
-            logger.info(f"Successfully fetched data for {city}")
-        else:
-            logger.warning(f"Incomplete data received for {city}")
-    except requests.exceptions.Timeout:
-        logger.error(f"Timeout fetching data for {city}")
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Failed to get data for {city}: {str(e)}")
-    except Exception as e:
-        logger.error(f"Unexpected error for {city}: {str(e)}")
+    CITIES = [
+        "Johannesburg", "Cape Town", "Durban", "Pretoria", "Port Elizabeth",
+        "Bloemfontein", "East London", "Pietermaritzburg", "Nelspruit", "Kimberley",
+        "Polokwane", "Rustenburg", "Middelburg", "George", "Richards Bay",
+        "Vanderbijlpark", "Centurion", "Uitenhage", "Welkom", "Newcastle",
+        "Vereeniging", "Krugersdorp", "Witbank", "Paarl", "Stellenbosch"
+    ]
+    REQUEST_TIMEOUT = 10
+
+    weather_list = []
+
+    for city in CITIES:
+        try:
+            url = f"https://api.openweathermap.org/data/2.5/weather?q={city},ZA&units=metric&appid={API_KEY}"
+            logger.info(f"Fetching weather data for {city}")
+            res = requests.get(url, timeout=REQUEST_TIMEOUT)
+            res.raise_for_status()
+            data = res.json()
+
+            # Make sure the response is valid
+            if data.get("main") and data.get("weather"):
+                weather_list.append({
+                    "City": city,
+                    "Temperature_C": data["main"]["temp"],
+                    "Feels_Like_C": data["main"]["feels_like"],
+                    "Humidity": data["main"]["humidity"],
+                    "Pressure": data["main"]["pressure"],
+                    "Wind_Speed": data["wind"].get("speed", 0),
+                    "Condition": data["weather"][0]["description"].title()
+                })
+                logger.info(f"Successfully fetched data for {city}")
+            else:
+                logger.warning(f"Incomplete data received for {city}")
+        except requests.exceptions.Timeout:
+            logger.error(f"Timeout fetching data for {city}")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to get data for {city}: {str(e)}")
+        except Exception as e:
+            logger.error(f"Unexpected error for {city}: {str(e)}")
 
 # Convert to DataFrame
 data = pd.DataFrame(weather_list)
@@ -113,10 +129,29 @@ if SAVE_STATIC_PLOTS:
 app = Dash(__name__)
 
 app.layout = html.Div([
+    # Demo mode banner (only shown in demo mode)
+    html.Div([
+        html.Div([
+            html.Span("ℹ️ DEMO MODE", style={'fontWeight': 'bold', 'marginRight': '10px'}),
+            html.Span("Using sample data. "),
+            html.A("Get a free API key", href="https://openweathermap.org/api",
+                   target="_blank", style={'color': '#3498db', 'textDecoration': 'underline'}),
+            html.Span(" to see live weather data.")
+        ], style={
+            'backgroundColor': '#fff3cd',
+            'color': '#856404',
+            'padding': '12px 20px',
+            'borderRadius': '8px',
+            'textAlign': 'center',
+            'border': '1px solid #ffeaa7',
+            'fontSize': '14px'
+        })
+    ], style={'marginBottom': '20px'}) if DEMO_MODE else html.Div(),
+
     html.Div([
         html.H1("South African Live Weather Dashboard",
                 style={'textAlign': 'center', 'color': '#ffffff', 'marginBottom': '10px', 'fontSize': '42px', 'fontWeight': 'bold'}),
-        html.P(f"Real-time weather data for {len(data)} South African cities",
+        html.P(f"{'Sample' if DEMO_MODE else 'Real-time'} weather data for {len(data)} South African cities",
                style={'textAlign': 'center', 'color': '#ecf0f1', 'fontSize': '18px'}),
     ], style={
         'background': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',

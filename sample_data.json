@@ -1,0 +1,227 @@
+[
+  {
+    "City": "Johannesburg",
+    "Temperature_C": 22.5,
+    "Feels_Like_C": 21.8,
+    "Humidity": 45,
+    "Pressure": 1013,
+    "Wind_Speed": 3.2,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Cape Town",
+    "Temperature_C": 18.3,
+    "Feels_Like_C": 17.9,
+    "Humidity": 72,
+    "Pressure": 1015,
+    "Wind_Speed": 5.8,
+    "Condition": "Partly Cloudy"
+  },
+  {
+    "City": "Durban",
+    "Temperature_C": 24.7,
+    "Feels_Like_C": 25.1,
+    "Humidity": 68,
+    "Pressure": 1012,
+    "Wind_Speed": 4.1,
+    "Condition": "Scattered Clouds"
+  },
+  {
+    "City": "Pretoria",
+    "Temperature_C": 23.1,
+    "Feels_Like_C": 22.5,
+    "Humidity": 42,
+    "Pressure": 1014,
+    "Wind_Speed": 2.9,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Port Elizabeth",
+    "Temperature_C": 19.8,
+    "Feels_Like_C": 19.4,
+    "Humidity": 65,
+    "Pressure": 1016,
+    "Wind_Speed": 6.2,
+    "Condition": "Few Clouds"
+  },
+  {
+    "City": "Bloemfontein",
+    "Temperature_C": 21.4,
+    "Feels_Like_C": 20.9,
+    "Humidity": 38,
+    "Pressure": 1011,
+    "Wind_Speed": 3.5,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "East London",
+    "Temperature_C": 20.2,
+    "Feels_Like_C": 19.8,
+    "Humidity": 70,
+    "Pressure": 1015,
+    "Wind_Speed": 5.4,
+    "Condition": "Broken Clouds"
+  },
+  {
+    "City": "Pietermaritzburg",
+    "Temperature_C": 22.8,
+    "Feels_Like_C": 22.3,
+    "Humidity": 55,
+    "Pressure": 1013,
+    "Wind_Speed": 3.8,
+    "Condition": "Partly Cloudy"
+  },
+  {
+    "City": "Nelspruit",
+    "Temperature_C": 25.6,
+    "Feels_Like_C": 25.9,
+    "Humidity": 62,
+    "Pressure": 1010,
+    "Wind_Speed": 2.7,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Kimberley",
+    "Temperature_C": 24.3,
+    "Feels_Like_C": 23.8,
+    "Humidity": 35,
+    "Pressure": 1009,
+    "Wind_Speed": 4.3,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Polokwane",
+    "Temperature_C": 23.7,
+    "Feels_Like_C": 23.2,
+    "Humidity": 48,
+    "Pressure": 1012,
+    "Wind_Speed": 3.1,
+    "Condition": "Few Clouds"
+  },
+  {
+    "City": "Rustenburg",
+    "Temperature_C": 22.9,
+    "Feels_Like_C": 22.4,
+    "Humidity": 44,
+    "Pressure": 1013,
+    "Wind_Speed": 3.4,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Middelburg",
+    "Temperature_C": 21.6,
+    "Feels_Like_C": 21.1,
+    "Humidity": 46,
+    "Pressure": 1014,
+    "Wind_Speed": 2.8,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "George",
+    "Temperature_C": 17.9,
+    "Feels_Like_C": 17.5,
+    "Humidity": 75,
+    "Pressure": 1017,
+    "Wind_Speed": 4.9,
+    "Condition": "Overcast Clouds"
+  },
+  {
+    "City": "Richards Bay",
+    "Temperature_C": 25.1,
+    "Feels_Like_C": 25.6,
+    "Humidity": 71,
+    "Pressure": 1011,
+    "Wind_Speed": 4.5,
+    "Condition": "Scattered Clouds"
+  },
+  {
+    "City": "Vanderbijlpark",
+    "Temperature_C": 22.3,
+    "Feels_Like_C": 21.8,
+    "Humidity": 43,
+    "Pressure": 1013,
+    "Wind_Speed": 3.3,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Centurion",
+    "Temperature_C": 23.0,
+    "Feels_Like_C": 22.4,
+    "Humidity": 42,
+    "Pressure": 1014,
+    "Wind_Speed": 2.9,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Uitenhage",
+    "Temperature_C": 19.5,
+    "Feels_Like_C": 19.1,
+    "Humidity": 66,
+    "Pressure": 1016,
+    "Wind_Speed": 5.7,
+    "Condition": "Few Clouds"
+  },
+  {
+    "City": "Welkom",
+    "Temperature_C": 21.8,
+    "Feels_Like_C": 21.3,
+    "Humidity": 40,
+    "Pressure": 1012,
+    "Wind_Speed": 3.6,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Newcastle",
+    "Temperature_C": 20.4,
+    "Feels_Like_C": 19.9,
+    "Humidity": 52,
+    "Pressure": 1013,
+    "Wind_Speed": 3.7,
+    "Condition": "Partly Cloudy"
+  },
+  {
+    "City": "Vereeniging",
+    "Temperature_C": 22.4,
+    "Feels_Like_C": 21.9,
+    "Humidity": 44,
+    "Pressure": 1013,
+    "Wind_Speed": 3.2,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Krugersdorp",
+    "Temperature_C": 22.6,
+    "Feels_Like_C": 22.1,
+    "Humidity": 45,
+    "Pressure": 1013,
+    "Wind_Speed": 3.3,
+    "Condition": "Clear Sky"
+  },
+  {
+    "City": "Witbank",
+    "Temperature_C": 21.9,
+    "Feels_Like_C": 21.4,
+    "Humidity": 47,
+    "Pressure": 1014,
+    "Wind_Speed": 2.9,
+    "Condition": "Few Clouds"
+  },
+  {
+    "City": "Paarl",
+    "Temperature_C": 18.6,
+    "Feels_Like_C": 18.2,
+    "Humidity": 70,
+    "Pressure": 1015,
+    "Wind_Speed": 5.2,
+    "Condition": "Partly Cloudy"
+  },
+  {
+    "City": "Stellenbosch",
+    "Temperature_C": 18.4,
+    "Feels_Like_C": 18.0,
+    "Humidity": 71,
+    "Pressure": 1015,
+    "Wind_Speed": 5.1,
+    "Condition": "Scattered Clouds"
+  }
+]
